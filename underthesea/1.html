@@ -1,0 +1,47 @@
+<html>
+	<head>
+		<title>hello</title>
+		<link rel="stylesheet" type="text/css" href="1/style.css">
+	</head>
+	<body>
+		<header id="header">
+			<a href="https://www.youtube.com/watch?v=cC9r0jHF-Fw" class="logo">Under the sea</a>
+			<ul>
+				<li><a href="1.html" class="active"><b>Home</b></a></li>
+				<li><a href="2.html"><b>Snorkeling</b></a></li>
+				<li><a href="3.html"><b>Sea Animal</b></a></li>
+				<li><a href="https://www.facebook.com/profile.php?id=100069311632934"><b>Contact</b></a></li>
+			</ul>
+		</header>
+		
+		<section>
+			<h2 id="text"><span>It's time for a new</span></br>Adventure</h2>
+			<img src="1/forest.png" id="forest">
+			<img src="1/rocks.png" id="rocks">
+			<img src="1/water.png" id="water">
+		</section>
+		
+		<div class="sec">
+			<h2><center>海洋是地球上最神秘的地方</center></h2>
+			<p><center>抬頭仰望星空</br>那麼充滿著深邃和寧靜</br>那是一切奧秘的所在</br>不過那距離我們太過遙遠</br>即使是在科學誕生300餘年後的今日</br>我們的腳步仍然限制在了地球的周邊</br>我們知道在遙遠的宇宙中充滿了秘密</br>但是我們無力去探究　至少暫時無力</br>低下頭來　回望現實</br>回望我們美麗的地球</br>這裡同樣充滿著秘密</br></br>特別是那如天空般蔚藍</br>如宇宙般深邃的海洋</br>那是一片神秘的領域</br>那裡有很多我們所不知道的東西</br>每一個人都嚮往大海</br>但大多數只能在岸邊欣賞其美</br>充其量駕船馳騁於海面之上</br>而對於水面之下的世界　則鮮有人知</center></p>
+
+		</div>
+		
+		<script>
+			let text = document.getElementById('text');
+			let rocks = document.getElementById('rocks');
+			let forest = document.getElementById('forest');
+			let water = document.getElementById('water');
+			let header = document.getElementById('header');
+			
+			window.addEventListener('scroll', function(){
+				let value = window.scrollY;
+	
+				text.style.top = 38 + value * -0.5 + '%';
+				rocks.style.top = value * -0.010 + '%';
+				forest.style.top = value * 0.25 + 'px';
+				header.style.top = value * 0.5 + 'px';
+			})
+		</script>
+	</body>
+</html>

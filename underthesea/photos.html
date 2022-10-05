@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Snorkeling</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+
+<link rel="stylesheet" href="photos/style.css">
+<script src="photos/earth.js"></script>
+
+<script>
+
+window.addEventListener( "earthjsload", function() {
+
+
+	myearth = new Earth( 'myearth', {
+
+		location: { lat: 20, lng: 90 },
+		zoom: 0.5,
+		quality: 4,	
+		light: 'none',
+		lightAmbience: 0,		
+		mapSeaColor : '#4682B4',
+		mapLandColor : '#69b73b',
+		mapBorderColor : '#404040',	
+		mapBorderWidth : 0.4,		
+		mapStyles : 
+		'#GR, #ES, #PT, #PK, #MX, #PE, #AR, #BF, #ET, #GN, #SL, #LR, #CI, #GH, #TG, #BJ, #NG, #ZM, #AO, #RW, #BI, #TZ, #MW, #MZ { fill: #69b73b; stroke:	#404040; } \
+		 #GL, #IS, #AQ { fill: #e5e8ee; stroke: #e5e8ee; } \
+		 #SE, #NO, #FI, #MY, #ID, #JP, #CA, #GT, #HN, #SV, #NI, #GF, #SR, #GY, #SS, #CM, #GQ, #CF, #GA, #CG, #CD, #UG, #BR { fill: #69b73b; stroke:	#404040; } \
+		 #AU, #KE, #MG, #ZW, #TR, #IR, #KZ, #TJ, #KG, #AF, #CL, #MA, #ER, #DJ, #SO, #GM, #SN, #NA, #LS, #BW, #SZ, #ZA { fill: #69b73b; stroke:	#404040; } \
+		 #SY, #JO, #LB, #IL, #KW, #SA, #AE, #QA, #YE, #OM, #IQ, #UZ, #TM, #DZ, #TN, #EG, #SD, #ML, #LY, #EH, #MR, #NE, #TD { fill: #69b73b; stroke:	#404040; } \
+		 ',
+	} );
+
+	
+	
+	var photos = [
+		{ location: { lat: -15.8, lng: -151.8 }, src: 'photos/Bora.png' },
+		{ location: { lat: 7.1, lng: 134.3 }, src: 'photos/Jellyfish.png' },
+		{ location: { lat: 11.6, lng: 92.7 }, src: 'photos/Andaman.png' },
+		{ location: { lat: -6.8, lng: 144.0 }, src: 'photos/Papua.png' },
+		{ location: { lat: -64.7, lng: -62.5 }, src: 'photos/Danco.png' },
+		{ location: { lat: 21.1, lng: -157.8 }, src: 'photos/Hawaii.png' },
+		{ location: { lat: -17.7, lng: 117.9 }, src: 'photos/Fiji.png' },
+		{ location: { lat: -6.3, lng: 39.5 }, src: 'photos/Jambiani.png' },
+		{ location: { lat: -21.3, lng: 165.5 }, src: 'photos/Nouvelle-Calédonie.png' },
+	];
+	
+	
+	myearth.addEventListener( "ready", function() {
+
+		myearth.animate( 'lightAmbience', 1, { duration : 2500 } );
+		myearth.animate( 'zoom', 1, { duration : 2000, complete : function() {
+			myearth.zoomable = true;
+		} } );
+	
+		// add photo overlay
+		
+		photo_overlay = this.addOverlay( {
+			content: '<div id="photo"><div id="close-photo" onclick="closePhoto(); event.stopPropagation();"></div></div>',
+			visible: false,
+			containerScale: 1,
+			depthScale: 0.5
+		} );	
+	
+
+		// add photo pins
+		
+		for ( var i=0; i < photos.length; i++ ) {
+			
+			var marker = this.addMarker( {
+			
+				mesh : "Marker",
+				color: '#E32636',
+				location : photos[i].location,
+				scale: 0.01,
+				offset: 1.6,
+				visible: false,
+				transparent: true,
+				hotspot: true,
+				hotspotRadius : 0.75,
+				hotspotHeight : 1.3,						
+				
+				// custom property
+				photo_info: photos[i]
+				
+			} );
+			
+			marker.addEventListener('click', openPhoto);
+			
+			// animate marker
+			setTimeout( (function() {
+				this.visible = true;
+				this.animate( 'scale', 0.9, { duration: 140 } );
+				this.animate( 'offset', 0, { duration: 1100, easing: 'bounce' } );
+			}).bind(marker), 280 * i );
+			
+		}
+		
+
+	} );
+	
+	
+	
+	// close photo overlay when navigating away
+	
+	myearth.addEventListener( "change", function() {
+		
+		if ( ! current_marker || auto_rotate ) return;
+
+		if ( Earth.getAngle( myearth.location, current_marker.location ) > 45 ) {
+			closePhoto();
+		}
+		
+	} );
+	
+
+} );
+
+
+
+var current_marker, auto_rotate;
+
+
+function openPhoto() {
+
+	// close current photo
+	if ( current_marker ) {
+		
+		closePhoto();
+		window.setTimeout( openPhoto.bind(this), 120 );
+		
+		return;
+	}
+	
+	// rotate earth if needed
+	if ( myearth.goTo( this.location, { relativeDuration: 100, approachAngle: 12, end: function(){auto_rotate=false;} } ) ) {
+		auto_rotate = true;
+	}
+	
+	
+	document.getElementById('photo').style.backgroundImage = "url("+ this.photo_info.src +")";
+	
+	photo_overlay.location = this.location;
+	photo_overlay.visible = true;
+	
+	setTimeout( function(){
+		document.getElementById('photo').className = 'photo-appear';
+	}, 120);
+	
+	this.animate( 'scale', 0.001, { duration: 150 } );
+	current_marker = this;
+	
+}
+
+function closePhoto() {
+
+	if ( ! current_marker ) return;
+	
+	document.getElementById('photo').className = '';
+	
+	setTimeout( (function(){
+		document.getElementById('photo').style.backgroundImage = 'none';
+		photo_overlay.visible = false;
+		this.opacity = 0.7;
+		this.animate( 'scale', 1, { duration: 150 } );
+	}).bind(current_marker), 100 );
+	
+	current_marker = false;
+	
+}
+
+
+</script>
+
+</head>
+
+<body>
+<header id="header">
+			<a href="https://www.youtube.com/watch?v=cC9r0jHF-Fw" class="logo">Under the sea</a>
+			<ul>
+				<li><a href="1.html"><b>Home</b></a></li>
+				<li><a href="2.html" class="active"><b>More</b></a></li>
+				<li><a href="3.html"><b>Sea Animal</b></a></li>
+				<li><a href="https://www.facebook.com/profile.php?id=100069311632934"><b>Contact</b></a></li>
+			</ul>
+		</header>
+
+
+<div id="wrapper">
+<h1>《探索9座絕美海底世界》</h1>
+	<div id="wrapper-in">
+		<div id="myearth"></div>
+	</div><!--wrapper-in-->
+</div><!--wrapper-->
+
+<div id="legal-footer-wrap">
+</div><!--legal-footer-wrap-->
+
+</body>
+</html>

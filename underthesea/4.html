@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CSS Cards</title>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.1/css/all.min.css">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Montserrat&amp;display=swap"rel="stylesheet">
+  <link rel="stylesheet" href="4/style.css" />
+</head>
+
+<body>
+	<header id="header">
+		<a href="https://www.youtube.com/watch?v=cC9r0jHF-Fw" class="logo">Under the sea</a>
+			<ul>
+				<li><a href="1.html"><b>Home</b></a></li>
+				<li><a href="2.html"><b>Snorkeling</b></a></li>
+				<li><a href="3.html" class="active"><b>More</b></a></li>
+				<li><a href="https://www.facebook.com/profile.php?id=100069311632934"><b>Contact</b></a></li>
+			</ul>
+	</header>
+	
+<div class="app">
+  <div class="cardList">
+    <button class="cardList__btn btn btn--left">
+      <div class="icon">
+        <svg>
+          <use xlink:href="#arrow-left"></use>
+        </svg>
+      </div>
+    </button>
+
+    <div class="cards__wrapper">
+      <div class="card current--card">
+        <div class="card__image">
+          <img src="4/珊瑚.jpg" alt="" />
+        </div>
+      </div>
+
+      <div class="card next--card">
+        <div class="card__image">
+          <img src="4/尼莫.jpg" alt="" />
+        </div>
+      </div>
+
+      <div class="card previous--card">
+        <div class="card__image">
+          <img src="4/尼莫好朋友.jpg" alt="" />
+        </div>
+      </div>
+    </div>
+
+    <button class="cardList__btn btn btn--right">
+      <div class="icon">
+        <svg>
+          <use xlink:href="#arrow-right"></use>
+        </svg>
+      </div>
+    </button>
+  </div>
+
+  <div class="infoList">
+    <div class="info__wrapper">
+      <div class="info current--info">
+        <h1 class="text name">珊瑚</h1>
+        <h4 class="text location">Coral</h4>
+        <p class="text description">珊瑚是對珊瑚蟲群體及其骨骼的通稱</br>雖然珊瑚無法移動但牠們能夠伸出觸手來捕食</br>珊瑚是固著的動物不能移動</br>因為外形像花像樹容易被誤認為生長在海底的植物</br>實際上珊瑚光合作用轉換能量是仰賴共生藻而</br>非本身有光合色素</p>
+      </div>
+
+      <div class="info next--info">
+        <h1 class="text name">小丑魚</h1>
+        <h4 class="text location">Clownfish</h4>
+        <p class="text description">是一種熱帶海水魚</br>小丑魚與帶有刺絲胞的海葵形成一種互利共生的關係</br>性別方面，在一群小丑魚當中體型最大者為雌性</br>第二大的為雄性，其餘則未分化性別的小魚</br>最終成為母魚後就無法變為公魚</br>小丑魚原生於印度洋和太平洋較溫暖的水中</p>
+      </div>
+
+      <div class="info previous--info">
+        <h1 class="text name">擬刺尾鯛</h1>
+        <h4 class="text location">Paracanthurus</br>hepatus</h4>
+        <p class="text description">是分布於印度洋和太平洋的一種魚類</br>棲息於面海且有潮流經過的礁區</br>成魚通常會群體聚集於離海底約1公尺高的水層</br>幼魚則聚集在珊瑚的枝芽附近為體色鮮艷的觀賞魚</br>已知主要以極細小的浮游動物、以及藻類為主食</br>大魚亦可食用，肉質細，可煮味噌湯</p>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="app__bg">
+    <div class="app__bg__image current--image">
+      <img src="4/珊瑚.jpg" alt="" />
+    </div>
+    <div class="app__bg__image next--image">
+      <img src="4/尼莫.jpg" alt="" />
+    </div>
+    <div class="app__bg__image previous--image">
+      <img src="4/尼莫好朋友.jpg" alt="" />
+    </div>
+  </div>
+</div>
+
+<div class="loading__wrapper">
+  <div class="loader--text">...RUNNING...</div>
+  <div class="loader">
+    <span></span>
+  </div>
+</div>
+
+
+<svg class="icons" style="display: none;">
+  <symbol id="arrow-left" xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
+    <polyline points='328 112 184 256 328 400'
+           style='fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px' />
+  </symbol>
+  <symbol id="arrow-right" xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
+    <polyline points='184 112 328 256 184 400'
+           style='fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px' />
+  </symbol>
+</svg>
+
+<script type="text/javascript" src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.3/gsap.min.js"></script>
+<script type="text/javascript" src="4/script.js"></script>
+</body>
+</html>
